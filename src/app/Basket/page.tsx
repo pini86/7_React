@@ -2,7 +2,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import styles from "./Basket.module.css";
 
-export default function QA() {
+export default function Basket() {
     return (
         <main>
             <Header />

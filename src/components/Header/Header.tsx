@@ -1,8 +1,23 @@
+"use client";
+
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartModule } from "../../redux/features/cart/selector";
 import { FunctionComponent } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
 
 export const Header: FunctionComponent = ({}) => {
+    const dispatch = useDispatch();
+    const Count = () => {
+        const allAmount = useSelector((state) => {
+            return Object.values(selectCartModule(state)).reduce(
+                // @ts-ignore
+                (acc, val) => acc + val,
+                0
+            ) as number;
+        });
+        return <div>{allAmount}</div>;
+    };
     return (
         <div className={styles.header_wrap}>
             <div>
@@ -11,9 +26,10 @@ export const Header: FunctionComponent = ({}) => {
                 </Link>
             </div>
             <div className={styles.basket_icon_wrap}>
-                <div className={styles.basket_count}>30</div>
+                <div className={styles.basket_count}>
+                    <Count />
+                </div>
                 <Link href="/Basket">
-                    {" "}
                     <div className={styles.basket_icon}></div>
                 </Link>
             </div>
