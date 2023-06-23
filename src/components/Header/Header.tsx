@@ -7,15 +7,14 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 
 export const Header: FunctionComponent = ({}) => {
-    const dispatch = useDispatch();
+    const allAmount = useSelector((state) => {
+        return Object.values(selectCartModule(state)).reduce(
+            // @ts-ignore
+            (acc, val) => acc + val,
+            0
+        ) as number;
+    });
     const Count = () => {
-        const allAmount = useSelector((state) => {
-            return Object.values(selectCartModule(state)).reduce(
-                // @ts-ignore
-                (acc, val) => acc + val,
-                0
-            ) as number;
-        });
         return <div>{allAmount}</div>;
     };
     return (
@@ -26,7 +25,10 @@ export const Header: FunctionComponent = ({}) => {
                 </Link>
             </div>
             <div className={styles.basket_icon_wrap}>
-                <div className={styles.basket_count}>
+                <div
+                    className={styles.basket_count}
+                    style={{ display: allAmount === 0 ? "none" : "block" }}
+                >
                     <Count />
                 </div>
                 <Link href="/Basket">

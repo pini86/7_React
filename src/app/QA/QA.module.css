@@ -80,5 +80,9 @@
     background-color: #ffffff;
 }
 .up {
-    transform: rotateX(180deg);
+    background-image: url("./icon_up.svg");
+}
+
+.down {
+    background-image: url("./icon.svg");
 }

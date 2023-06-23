@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import styles from "./QA.module.css";
@@ -15,8 +15,16 @@ export default function QA() {
         }
         const b = document.getElementById(`button_` + id);
         if (b) {
+            /*  if (b.classList.contains("up")) {
+                b.classList.remove("up");
+                b.classList.add("down");
+            } else {
+                b.classList.remove("down");
+                b.classList.add("up");
+            } */
             b.classList.toggle("up");
         }
+        return false;
     };
     return (
         <main>
