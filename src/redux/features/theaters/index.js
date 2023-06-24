@@ -6,12 +6,11 @@ const theatersSlice = createSlice({
     initialState,
     reducers: {
         reset: () => initialState,
-        addTheaters(state, { payload }) {
-            return { ...state, theaters: [...payload] };
+        addTheaters: (state, { payload }) => {
+            return { ...state, ...payload };
         },
     },
 });
 
 export const theatersReducer = theatersSlice.reducer;
 export const theatersActions = theatersSlice.actions;
-

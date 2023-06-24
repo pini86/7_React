@@ -41,7 +41,7 @@ export const Filter = () => {
             })
         );
     }, [currFilters]);
-    
+
     if (isLoading) {
         return <span>Loading !!!</span>;
     }

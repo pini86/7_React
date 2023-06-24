@@ -7,8 +7,8 @@ import { ControlBasket } from "../ControlBasket/ControlBasket";
 import Link from "next/link";
 import { selectMovies } from "@/redux/features/movies/selector";
 
-export const Films = () => {
-    const dataFilms = useSelector((state) => selectMovies(state)).movies;
+export const Films = ({ dataFilms }) => {
+    //const dataFilms = useSelector((state) => selectMovies(state)).movies;
     return (
         <div className={styles.films_wrap}>
             {dataFilms.map(({ id, title, posterUrl, genre }) => (

@@ -12,7 +12,7 @@ export const Main = () => {
     const dispatch = useDispatch();
     const { data, isLoading, error } = useGetMoviesQuery("");
     const currentFilters = useSelector((state) => selectFilters(state));
-    const currentTheatres = useSelector((state) => selectTheaters(state));
+    //const currentTheatres = useSelector((state) => selectTheaters(state));
 
     if (isLoading) {
         return <span>Loading !!!</span>;
@@ -21,12 +21,12 @@ export const Main = () => {
         return <span>Not found!</span>;
     }
 
-    const enriesFilter = Object.entries(currentFilters); //.filter((item) => !!item[1]);
-
     let filmsFiltered = [...data];
     if (currentFilters.title) {
         filmsFiltered = filmsFiltered.filter((film) =>
-            film.title.includes(currentFilters.title)
+            film.title
+                .toLowerCase()
+                .includes(currentFilters.title.toLowerCase())
         );
     }
     if (currentFilters.genre) {
@@ -36,7 +36,7 @@ export const Main = () => {
     }
 
     if (currentFilters.theaters) {
-       /*  const selectedFilms = [
+        /*  const selectedFilms = [
             ...currentTheatres.filter((th) => th.id === currentFilters.theaters)
                 .movieIds,
         ]; // ids фильмов в выбраном театре
@@ -51,7 +51,7 @@ export const Main = () => {
         <div className={styles.main_wrap}>
             <div className={styles.main_content}>
                 <Filter />
-                <Films />
+                <Films dataFilms={filmsFiltered} />
             </div>
         </div>
     );
