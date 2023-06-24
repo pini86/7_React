@@ -6,22 +6,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { moviesActions } from "@/redux/features/movies";
 import { useGetMoviesQuery } from "@/redux/services/movieApi";
 import { selectFilters } from "@/redux/features/filters/selector";
-import { selectTheaters } from "@/redux/features/theaters/selector";
+import { useGetTheatersQuery } from "@/redux/services/theatersApi";
+import { theatersActions } from "@/redux/features/theaters";
 
 export const Main = () => {
     const dispatch = useDispatch();
-    const { data, isLoading, error } = useGetMoviesQuery("");
     const currentFilters = useSelector((state) => selectFilters(state));
-    //const currentTheatres = useSelector((state) => selectTheaters(state));
 
-    if (isLoading) {
+    const { data, isLoading, error } = useGetMoviesQuery("");
+
+    const {
+        data: data1,
+        isLoading: isLoading1,
+        error: error1,
+    } = useGetTheatersQuery("");
+
+    if (isLoading || isLoading1) {
         return <span>Loading !!!</span>;
     }
-    if (!data || error) {
+    if (!data || error || !data1 || error1) {
         return <span>Not found!</span>;
     }
+    dispatch(moviesActions.addMovies(data));
+    dispatch(theatersActions.addTheaters(data1));
 
     let filmsFiltered = [...data];
+
+    if (currentFilters.theater) {
+        const currentTheatres = Object.values(data1);
+
+        const selectedFilms = currentTheatres.filter(
+            (th) => th.id === currentFilters.theater
+        )[0].movieIds; // ids фильмов в выбраном театре
+        filmsFiltered = data.filter((film) => selectedFilms.includes(film.id));
+    }
+    if (currentFilters.genre) {
+        filmsFiltered = filmsFiltered.filter(
+            (film) => film.genre === currentFilters.genre
+        );
+    }
     if (currentFilters.title) {
         filmsFiltered = filmsFiltered.filter((film) =>
             film.title
@@ -29,23 +52,6 @@ export const Main = () => {
                 .includes(currentFilters.title.toLowerCase())
         );
     }
-    if (currentFilters.genre) {
-        filmsFiltered = filmsFiltered.filter(
-            (film) => film.genre === currentFilters.genre
-        );
-    }
-
-    if (currentFilters.theaters) {
-        /*  const selectedFilms = [
-            ...currentTheatres.filter((th) => th.id === currentFilters.theaters)
-                .movieIds,
-        ]; // ids фильмов в выбраном театре
-        console.log("selected Ids films", selectedFilms);
-        filmsFiltered = data.filter((film) => selectedFilms.includes(film.id)); */
-    }
-    console.log(filmsFiltered);
-
-    dispatch(moviesActions.addMovies(data));
 
     return (
         <div className={styles.main_wrap}>
