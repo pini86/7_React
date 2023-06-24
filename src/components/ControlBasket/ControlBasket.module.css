@@ -1,6 +1,6 @@
 .control_wrap {
     display: flex;
-
+    height: 32px;
     justify-content: space-between;
     column-gap: 8px;
 }
@@ -18,4 +18,14 @@
 }
 .enabled {
     background-color: #ff5500;
+}
+.close {
+    border: none;
+    background-image: url("./close.svg");
+    width: 32px;
+    height: 32px;
+    color: #333333;
+    scale: 0.59;
+    transform: translateY(-10px);
+    background-color: #ffffff;
 }

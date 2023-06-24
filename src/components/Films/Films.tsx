@@ -1,40 +1,13 @@
-/* import { FunctionComponent, useState } from "react";
-import { FilmDetails } from "../FilmDetails/FilmDetails";
-
-const filmsDetails= {
-    title: "The Simpsond",
-    genre : "comedy",
-    seasonsCount: 33
-}
-export const Films: FunctionComponent = () => {
-   
-    return (
-        <div>
-            <header />
-            <FilmDetails title={FilmDetails.title} genre={filmsDetails.genre} seasonsCount={filmsDetails.seasonsCount}/>
-            <Reviews />
-            <Recomendations />
-            <footer />
-        </div>
-    );
-};
- */
 "use client";
-import { FunctionComponent, useState } from "react";
-import { Filter } from "../Filter/Filter";
 import styles from "./Films.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProductAmount } from "../../redux/features/cart/selector";
-import { cartActions } from "@/redux/features/cart";
-import {
-    useGetMoviesQuery,
-    useGetMovieQuery,
-} from "../../redux/services/movieApi";
+import { moviesActions } from "../../redux/features/movies";
+import { useGetMoviesQuery } from "../../redux/services/movieApi";
 import { ControlBasket } from "../ControlBasket/ControlBasket";
 export const Films = () => {
     const dispatch = useDispatch();
     const { data, isLoading, error } = useGetMoviesQuery("");
-    const [currentFilmId, setCurrentFilmId] = useState();
+    //const [currentFilmId, setCurrentFilmId] = useState();
 
     if (isLoading) {
         return <span>Loading !!!</span>;
@@ -42,6 +15,8 @@ export const Films = () => {
     if (!data || error) {
         return <span>Not found!</span>;
     }
+
+    dispatch(moviesActions.addMovies(data));
     return (
         <div className={styles.films_wrap}>
             {data.map(({ id, title, posterUrl, genre }) => (

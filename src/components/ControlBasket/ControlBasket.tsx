@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProductAmount } from "../../redux/features/cart/selector";
 import { cartActions } from "@/redux/features/cart";
 
-export const ControlBasket = ({ id }) => {
+export const ControlBasket = ({ id, close = false }) => {
     const dispatch = useDispatch();
     const Count = () => {
         const productAmount = useSelector((state) =>
@@ -36,6 +36,11 @@ export const ControlBasket = ({ id }) => {
             >
                 +
             </button>
+            <button
+                onClick={() => dispatch(cartActions.resetId(id))}
+                className={styles.close}
+                style={{ display: close ? "block" : "none" }}
+            ></button>
         </div>
     );
 };

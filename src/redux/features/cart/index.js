@@ -22,6 +22,9 @@ const cartSlice = createSlice({
             }
             state[payload] = count - 1;
         },
+        resetId: (state, { payload }) => {
+            delete state[payload];
+        },
         reset: () => initialState,
     },
 });
