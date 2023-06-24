@@ -1,0 +1,12 @@
+.main_wrap {
+    width: 100%;
+    height: calc(100vh - 170px);
+    background-color: #f5f5f5;
+}
+
+.main_content {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 32px;
+    column-gap: 23px;
+}
