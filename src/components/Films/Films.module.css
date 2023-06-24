@@ -1,9 +1,12 @@
 .films_wrap {
     width: 100%;
+    height: calc(100vh - 170px);
+    overflow: scroll;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     row-gap: 16px;
+    scroll-behavior: smooth;
 }
 
 .film_content {
@@ -44,6 +47,8 @@
     font-style: italic;
     font-weight: 400;
 }
+
+
 .film_info {
     width: 100%;
     display: flex;

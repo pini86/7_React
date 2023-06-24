@@ -1,83 +1,57 @@
 "use client";
-import { FunctionComponent, useState } from "react";
 import { Filter } from "../Filter/Filter";
 import styles from "./Main.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { selectProductAmount } from "../../redux/features/cart/selector";
-import { cartActions } from "@/redux/features/cart";
-import {
-    useGetMoviesQuery,
-    useGetMovieQuery,
-} from "../../redux/services/movieApi";
 import { Films } from "../Films/Films";
+import { useDispatch, useSelector } from "react-redux";
+import { moviesActions } from "@/redux/features/movies";
+import { useGetMoviesQuery } from "@/redux/services/movieApi";
+import { selectFilters } from "@/redux/features/filters/selector";
+import { selectTheaters } from "@/redux/features/theaters/selector";
 
-const PRODUCT_ID = "3";
-
-export const Main: FunctionComponent = () => {
+export const Main = () => {
     const dispatch = useDispatch();
-    const Film = ({ filmId }: { filmId: string }) => {
-        const { data, isLoading, error } = useGetMovieQuery(filmId);
-        if (isLoading) {
-            return <span>Loading !!!</span>;
-        }
-        if (!data || error) {
-            return <span>Not found!</span>;
-        }
-        return <div>Active : {data.title}</div>;
-    };
-    /*  const Films = () => {
-        const { data, isLoading, error } = useGetMoviesQuery("");
-        const [currentFilmId, setCurrentFilmId] = useState();
+    const { data, isLoading, error } = useGetMoviesQuery("");
+    const currentFilters = useSelector((state) => selectFilters(state));
+    const currentTheatres = useSelector((state) => selectTheaters(state));
 
-        if (isLoading) {
-            return <span>Loading !!!</span>;
-        }
-        if (!data || error) {
-            return <span>Not found!</span>;
-        }
-        return (
-            <div>
-                {data.map(({ id, title }) => (
-                    <button key={id} onClick={() => setCurrentFilmId(id)}>
-                        {title}
-                    </button>
-                ))}
-                {currentFilmId && <Film filmId={currentFilmId} />}
-            </div>
-        );
-    }; */
+    if (isLoading) {
+        return <span>Loading !!!</span>;
+    }
+    if (!data || error) {
+        return <span>Not found!</span>;
+    }
 
-    const Product = () => {
-        const productAmount = useSelector((state) =>
-            selectProductAmount(state, PRODUCT_ID)
+    const enriesFilter = Object.entries(currentFilters); //.filter((item) => !!item[1]);
+
+    let filmsFiltered = [...data];
+    if (currentFilters.title) {
+        filmsFiltered = filmsFiltered.filter((film) =>
+            film.title.includes(currentFilters.title)
         );
-        return <div>{productAmount}</div>;
-    };
+    }
+    if (currentFilters.genre) {
+        filmsFiltered = filmsFiltered.filter(
+            (film) => film.genre === currentFilters.genre
+        );
+    }
+
+    if (currentFilters.theaters) {
+       /*  const selectedFilms = [
+            ...currentTheatres.filter((th) => th.id === currentFilters.theaters)
+                .movieIds,
+        ]; // ids фильмов в выбраном театре
+        console.log("selected Ids films", selectedFilms);
+        filmsFiltered = data.filter((film) => selectedFilms.includes(film.id)); */
+    }
+    console.log(filmsFiltered);
+
+    dispatch(moviesActions.addMovies(data));
 
     return (
         <div className={styles.main_wrap}>
             <div className={styles.main_content}>
-                <div className={styles.filter_wrap}>
-                    <Filter />
-                </div>
-                <div className={styles.filmslist_wrap}>
-                    <button
-                        onClick={() =>
-                            dispatch(cartActions.decrement(PRODUCT_ID))
-                        }
-                    >
-                        -
-                    </button>
-                    <button
-                        onClick={() =>
-                            dispatch(cartActions.increment(PRODUCT_ID))
-                        }
-                    >
-                        +
-                    </button>
-                    <Product />
-                    <Films />
-                </div>
+                <Filter />
+                <Films />
             </div>
         </div>
     );

@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: space-between;
     row-gap: 8px;
-    width: 100%;
+   /*  width: 100%; */
     border-radius: 8px;
     background-color:  #FFFFFF;
     padding: 24px;

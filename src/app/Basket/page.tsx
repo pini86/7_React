@@ -2,13 +2,12 @@
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import styles from "./Basket.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCartModule } from "../../redux/features/cart/selector";
 import { selectMovies } from "../../redux/features/movies/selector";
 import { ControlBasket } from "../../components/ControlBasket/ControlBasket";
 
 export default function Basket() {
-    //const dispatch = useDispatch();
     const filmsInBasket = useSelector((state) => {
         const allFilms = selectMovies(state).movies;
         if (!allFilms || !allFilms.length) {
@@ -18,7 +17,13 @@ export default function Basket() {
             Object.keys(selectCartModule(state)).includes(movie.id)
         );
     });
-
+    const allAmount = useSelector((state) => {
+        return Object.values(selectCartModule(state)).reduce(
+            // @ts-ignore
+            (acc, val) => acc + val,
+            0
+        ) as number;
+    });
     return (
         <main>
             <Header />
@@ -39,14 +44,14 @@ export default function Basket() {
                                     {genre}
                                 </span>
                             </div>
-                            <ControlBasket id={id} close={true}/>
+                            <ControlBasket id={id} close={true} />
                         </div>
                     ))}
                 </div>
                 <div className={styles.total_basket_wrap}>
                     <div className={styles.total_basket_count}>
                         <span>Итого билетов:</span>
-                        <span>{filmsInBasket.length}</span>
+                        <span>{allAmount}</span>
                     </div>
                 </div>
             </div>
