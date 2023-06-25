@@ -11,8 +11,6 @@ import { theatersActions } from "@/redux/features/theaters";
 
 export const Main = () => {
     const dispatch = useDispatch();
-    //const currentFilters = useSelector((state) => selectFilters(state));
-
     const { data, isLoading, error } = useGetMoviesQuery("");
 
     const {
@@ -29,29 +27,6 @@ export const Main = () => {
     }
     dispatch(moviesActions.addMovies(data));
     dispatch(theatersActions.addTheaters(data1));
-
-  /*   let filmsFiltered = [...data];
-
-    if (currentFilters.theater) {
-        const currentTheatres = Object.values(data1);
-
-        const selectedFilms = currentTheatres.filter(
-            (th) => th.id === currentFilters.theater
-        )[0].movieIds; // ids фильмов в выбраном театре
-        filmsFiltered = data.filter((film) => selectedFilms.includes(film.id));
-    }
-    if (currentFilters.genre) {
-        filmsFiltered = filmsFiltered.filter(
-            (film) => film.genre === currentFilters.genre
-        );
-    }
-    if (currentFilters.title) {
-        filmsFiltered = filmsFiltered.filter((film) =>
-            film.title
-                .toLowerCase()
-                .includes(currentFilters.title.toLowerCase())
-        );
-    } */
 
     return (
         <div className={styles.main_wrap}>

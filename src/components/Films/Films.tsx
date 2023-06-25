@@ -39,27 +39,31 @@ export const Films = () => {
         );
     }
     return (
-        <div className={styles.films_wrap}>
-            {filmsFiltered.map(({ id, title, posterUrl, genre }) => (
-                <div className={styles.film_content} key={id}>
-                    <img
-                        src={posterUrl}
-                        alt={title}
-                        className={styles.film_poster}
-                    ></img>
-                    <div className={styles.film_info_wrap}>
-                        {/* <Link href={`/FilmDetails/${encodeURIComponent(id)}`}> */}
-                        <Link
-                            href="/FilmDetails/[id]"
-                            as={`/FilmDetails/${id}`}
-                        >
-                            <h3 className={styles.film_info_title}>{title}</h3>
-                        </Link>
-                        <span className={styles.film_info_genre}>{genre}</span>
+        <>
+            <div className={styles.films_wrap}>
+                {filmsFiltered.map(({ id, title, posterUrl, genre }) => (
+                    <div className={styles.film_content} key={id}>
+                        <img
+                            src={posterUrl}
+                            alt={title}
+                            className={styles.film_poster}
+                        ></img>
+                        <div className={styles.film_info_wrap}>
+                            <Link
+                                href={`/FilmDetails/${encodeURIComponent(id)}`}
+                            >
+                                <h3 className={styles.film_info_title}>
+                                    {title}
+                                </h3>
+                            </Link>
+                            <span className={styles.film_info_genre}>
+                                {genre}
+                            </span>
+                        </div>
+                        <ControlBasket id={id} />
                     </div>
-                    <ControlBasket id={id} />
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+        </>
     );
 };

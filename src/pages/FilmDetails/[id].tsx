@@ -3,6 +3,9 @@
 import styles from "../../components/FilmDetails/FilmDetails.module.css";
 import { useSelector } from "react-redux";
 import { ControlBasket } from "../../components/ControlBasket/ControlBasket";
+import { selectMovies } from "@/redux/features/movies/selector";
+import { useRouter } from "next/router";
+import type { NextPage } from "next";
 import { StoreProvider } from "../../redux/StoreProvider";
 
 const FilmDetails = ({ movie }) => {
@@ -19,6 +22,22 @@ const FilmDetails = ({ movie }) => {
         director,
         reviewIds,
     } = movie;
+    /*  const {
+        title,
+        posterUrl,
+        genre,
+        releaseYear,
+        description,
+        rating,
+        director,
+        reviewIds,
+    } = useSelector((state) => {
+        const allFilms = selectMovies(state).movies;
+        if (!allFilms || !allFilms.length) {
+            return [];
+        }
+        return allFilms.filter((movie) => movie.id === id);
+    }); */
 
     return (
         <>
@@ -39,7 +58,6 @@ const FilmDetails = ({ movie }) => {
         </>
     );
 };
-export default FilmDetails;
 
 export async function getStaticPaths() {
     const movies = await (
@@ -67,3 +85,5 @@ export async function getStaticProps({ params }) {
         },
     };
 }
+
+export default FilmDetails;
