@@ -1,19 +1,34 @@
 "use client";
-
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartModule } from "../../redux/features/cart/selector";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./Header.module.css";
 
 export const Header: FunctionComponent = ({}) => {
-    const allAmount = useSelector((state) => {
+    /* const allAmount = useSelector((state) => {
         return Object.values(selectCartModule(state)).reduce(
             // @ts-ignore
             (acc, val) => acc + val,
             0
         ) as number;
-    });
+    }); */
+
+    const [allAmount, setAllAmount] = useState(
+        Number(localStorage.getItem("TF_CART")) || 0
+    );
+
+    useEffect(() => {
+        window.addEventListener("storage", (e) =>
+            setAllAmount(+Number(localStorage.getItem("TF_CART")))
+        );
+        return () => {
+            window.removeEventListener("storage", (e) =>
+                setAllAmount(+Number(localStorage.getItem("TF_CART")))
+            );
+        };
+    }, []);
+
     const Count = () => {
         return <div>{allAmount}</div>;
     };

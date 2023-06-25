@@ -11,7 +11,7 @@ import { theatersActions } from "@/redux/features/theaters";
 
 export const Main = () => {
     const dispatch = useDispatch();
-    const currentFilters = useSelector((state) => selectFilters(state));
+    //const currentFilters = useSelector((state) => selectFilters(state));
 
     const { data, isLoading, error } = useGetMoviesQuery("");
 
@@ -30,7 +30,7 @@ export const Main = () => {
     dispatch(moviesActions.addMovies(data));
     dispatch(theatersActions.addTheaters(data1));
 
-    let filmsFiltered = [...data];
+  /*   let filmsFiltered = [...data];
 
     if (currentFilters.theater) {
         const currentTheatres = Object.values(data1);
@@ -51,13 +51,13 @@ export const Main = () => {
                 .toLowerCase()
                 .includes(currentFilters.title.toLowerCase())
         );
-    }
+    } */
 
     return (
         <div className={styles.main_wrap}>
             <div className={styles.main_content}>
                 <Filter />
-                <Films dataFilms={filmsFiltered} />
+                <Films />
             </div>
         </div>
     );

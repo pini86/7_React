@@ -6,12 +6,41 @@ import { useGetMoviesQuery } from "../../redux/services/movieApi";
 import { ControlBasket } from "../ControlBasket/ControlBasket";
 import Link from "next/link";
 import { selectMovies } from "@/redux/features/movies/selector";
+import { selectFilters } from "@/redux/features/filters/selector";
+import { selectTheaters } from "@/redux/features/theaters/selector";
 
-export const Films = ({ dataFilms }) => {
-    //const dataFilms = useSelector((state) => selectMovies(state)).movies;
+export const Films = () => {
+    const currentFilters = useSelector((state) => selectFilters(state));
+    const dataFilms = useSelector((state) => selectMovies(state)).movies;
+    const currentTheatresObj = useSelector((state) => selectTheaters(state));
+
+    let filmsFiltered = [...dataFilms];
+
+    if (currentFilters.theater) {
+        const currentTheatres = Object.values(currentTheatresObj);
+
+        const selectedFilms = currentTheatres.filter(
+            (th) => th.id === currentFilters.theater
+        )[0].movieIds; // ids фильмов в выбраном театре
+        filmsFiltered = dataFilms.filter((film) =>
+            selectedFilms.includes(film.id)
+        );
+    }
+    if (currentFilters.genre) {
+        filmsFiltered = filmsFiltered.filter(
+            (film) => film.genre === currentFilters.genre
+        );
+    }
+    if (currentFilters.title) {
+        filmsFiltered = filmsFiltered.filter((film) =>
+            film.title
+                .toLowerCase()
+                .includes(currentFilters.title.toLowerCase())
+        );
+    }
     return (
         <div className={styles.films_wrap}>
-            {dataFilms.map(({ id, title, posterUrl, genre }) => (
+            {filmsFiltered.map(({ id, title, posterUrl, genre }) => (
                 <div className={styles.film_content} key={id}>
                     <img
                         src={posterUrl}
@@ -21,8 +50,8 @@ export const Films = ({ dataFilms }) => {
                     <div className={styles.film_info_wrap}>
                         {/* <Link href={`/FilmDetails/${encodeURIComponent(id)}`}> */}
                         <Link
-                            href="/pages/FilmDetails/[id]"
-                            as={`/pages/FilmDetails/${id}`}
+                            href="/FilmDetails/[id]"
+                            as={`/FilmDetails/${id}`}
                         >
                             <h3 className={styles.film_info_title}>{title}</h3>
                         </Link>

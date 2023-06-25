@@ -8,11 +8,11 @@ import { selectTheaters } from "@/redux/features/theaters/selector";
 
 export const Filter = () => {
     const dispatch = useDispatch();
-    const [currFilters, setCurrFilters] = useState({
+    /*   const [currFilters, setCurrFilters] = useState({
         title: undefined,
         genre: undefined,
         theater: undefined,
-    });
+    }); */
 
     const currentTheatres = useSelector((state) => selectTheaters(state));
     const currentFilters = useSelector((state) => selectFilters(state)).filters;
@@ -28,23 +28,28 @@ export const Filter = () => {
         }
     }, [currentTheatres]);
 
-    useEffect(() => {
+    /*    useEffect(() => {
         dispatch(
             filtersActions.addFilters({
                 ...currentFilters,
                 ...currFilters,
             })
         );
-    }, [currFilters]);
+    }, [currFilters]); */
 
     function handleInputChange(event) {
         event.preventDefault();
         const target = event.target;
         const value = target.value;
         const name = target.name;
-
-        setCurrFilters({ ...currFilters, [name]: value });
-        console.log(currFilters);
+        dispatch(
+            filtersActions.addFilters({
+                ...currentFilters,
+                [name]: value,
+            })
+        );
+        //setCurrFilters({ ...currFilters, [name]: value });
+        // console.log(currFilters);
     }
 
     return (
