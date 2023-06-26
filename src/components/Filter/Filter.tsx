@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./Filter.module.css";
 import { selectFilters } from "../../redux/features/filters/selector";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,34 +8,32 @@ import { selectTheaters } from "@/redux/features/theaters/selector";
 
 export const Filter = () => {
     const dispatch = useDispatch();
-    /*   const [currFilters, setCurrFilters] = useState({
-        title: undefined,
-        genre: undefined,
-        theater: undefined,
-    }); */
-
     const currentTheatres = useSelector((state) => selectTheaters(state));
-    const currentFilters = useSelector((state) => selectFilters(state)).filters;
+    const currentFilters = useSelector((state) => selectFilters(state));
 
     useEffect(() => {
         const objSel = document.getElementById("theater") as HTMLSelectElement;
 
         if (objSel) {
-            Object.values(currentTheatres).forEach(
+            [
+                { name: "All", id: "" },
+                ...Object.values(currentTheatres),
+            ].forEach(
                 (th, index) =>
-                    (objSel.options[index] = new Option(th.name, th.id))
+                    (objSel.options[index] = new Option(
+                        (th as { name: string }).name,
+                        (th as { id: string }).id
+                    ))
             );
         }
     }, [currentTheatres]);
 
-    /*    useEffect(() => {
-        dispatch(
-            filtersActions.addFilters({
-                ...currentFilters,
-                ...currFilters,
-            })
-        );
-    }, [currFilters]); */
+    useEffect(() => {
+        Object.keys(currentFilters).forEach((key) => {
+            (document.getElementById(key) as HTMLSelectElement).value =
+                currentFilters[key];
+        });
+    }, [currentFilters]);
 
     function handleInputChange(event) {
         event.preventDefault();
@@ -48,8 +46,6 @@ export const Filter = () => {
                 [name]: value,
             })
         );
-        //setCurrFilters({ ...currFilters, [name]: value });
-        // console.log(currFilters);
     }
 
     return (
@@ -70,7 +66,7 @@ export const Filter = () => {
                 <div className={styles.filter_item}>
                     <label className={styles.filter_item_title}>Жанр</label>
                     <select
-                        className={styles.filter_item_input}
+                        className={styles.filter_item_select}
                         id="genre"
                         name="genre"
                         placeholder="Выберите жанр"
@@ -88,12 +84,14 @@ export const Filter = () => {
                         Кинотеатр
                     </label>
                     <select
-                        className={styles.filter_item_input}
+                        className={styles.filter_item_select}
                         id="theater"
                         name="theater"
                         placeholder="Выберите кинотеатр"
                         onChange={handleInputChange}
-                    ></select>
+                    >
+                        <option value="">All</option>
+                    </select>
                 </div>
             </div>
         </div>

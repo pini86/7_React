@@ -2,7 +2,7 @@
     width: 100%;
     min-height: calc(100vh - 170px);
     background-color: #f5f5f5;
-       display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -10,16 +10,12 @@
 .films_basket_wrap {
     width: 100%;
     min-height: calc(100vh - 286px);
-   
-    /*  overflow-x: hidden; */
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     row-gap: 16px;
     overflow-y: auto;
     scroll-behavior: smooth;
     padding: 24px;
-   /*  padding-top: 108px; */
 }
 
 .film_content {
@@ -28,7 +24,6 @@
     border-radius: 8px;
     background-color: #ffffff;
     display: flex;
-    /*  justify-content: space-between; */
     padding: 24px;
     column-gap: 24px;
 }
@@ -42,13 +37,9 @@
 .film_info_wrap {
     width: 100%;
     color: #1b1f23;
-    /*  font-family: Roboto; */
     line-height: 20px;
     letter-spacing: 0px;
     text-align: left;
-    /*  display: flex;
-    justify-content: space-between;
-    align-items: flex-start; */
 }
 
 .film_info_title {
@@ -69,7 +60,6 @@
 }
 
 .total_basket_wrap {
-    /*  width: 100%; */
     height: 68px;
     border-radius: 8px;
     margin: 24px;
@@ -77,7 +67,6 @@
 }
 
 .total_basket_count {
-    /* font-family: Roboto; */
     width: 100%;
     padding: 24px;
     font-size: 20px;

@@ -92,7 +92,7 @@ const FilmDetails = ({ params }) => {
                     </div>
                 </div>
 
-             {/*    {data.map((item) => (
+                {data.map((item) => (
                     <div key={item.id} className={styles.film_det_review_wrap}>
                         <div className={styles.film_det_review_img}></div>
                         <div className={styles.film_det_review_contain}>
@@ -139,36 +139,10 @@ const FilmDetails = ({ params }) => {
                             </div>
                         </div>
                     </div>
-                ))} */}
+                ))}
             </div>
             <Footer />
         </>
     );
 };
-/* 
-export async function getStaticPaths() {
-    const movies = await (
-        await fetch("http://localhost:3001/api/movies")
-    )?.json();
-    const paths = movies.map((movie) => ({
-        params: { id: movie.id },
-    }));
-    return {
-        paths,
-        fallback: true,
-    };
-}
-
-export async function getStaticProps({ params }) {
-    const movie = await (
-        await fetch(`http://localhost:3001/api/movie?movieId=${params.id}`)
-    ).json();
-
-    return {
-        props: {
-            movie,
-        },
-    };
-} */
-
 export default FilmDetails;

@@ -15,7 +15,6 @@ export const Footer: FunctionComponent = ({}) => {
             </div>
             <div className={styles.footer_content}>
                 <Link href="/About">
-                    {" "}
                     <span className={styles.footer_content}>О нас</span>
                 </Link>
             </div>

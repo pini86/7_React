@@ -1,8 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import styles from "./Films.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { moviesActions } from "../../redux/features/movies";
-import { useGetMoviesQuery } from "../../redux/services/movieApi";
+import { useSelector } from "react-redux";
 import { ControlBasket } from "../ControlBasket/ControlBasket";
 import Link from "next/link";
 import { selectMovies } from "@/redux/features/movies/selector";
@@ -19,7 +18,7 @@ export const Films = () => {
     if (currentFilters.theater) {
         const currentTheatres = Object.values(currentTheatresObj);
 
-        const selectedFilms = currentTheatres.filter(
+        const selectedFilms = (currentTheatres as any).filter(
             (th) => th.id === currentFilters.theater
         )[0].movieIds; // ids фильмов в выбраном театре
         filmsFiltered = dataFilms.filter((film) =>

@@ -1,6 +1,5 @@
 "use client";
-
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCartModule } from "../../redux/features/cart/selector";
 import { FunctionComponent } from "react";
 import Link from "next/link";

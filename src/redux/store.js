@@ -25,6 +25,3 @@ export const store = configureStore({
             .concat([theatersApi.middleware])
             .concat([reviewApi.middleware]),
 });
-
-//console.log(store.getState());
-//console.log(store.getState().cart);
