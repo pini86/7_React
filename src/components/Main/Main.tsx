@@ -28,12 +28,18 @@ export const Main = () => {
     dispatch(moviesActions.addMovies(data));
     dispatch(theatersActions.addTheaters(data1));
 
-    return (
+    /*  return (
         <div className={styles.main_wrap}>
             <div className={styles.main_content}>
                 <Filter />
                 <Films />
             </div>
+        </div>
+    ); */
+    return (
+        <div className={styles.main_wrap}>
+            <Filter />
+            <Films />
         </div>
     );
 };

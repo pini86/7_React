@@ -6,6 +6,8 @@
     justify-content: space-between;
     background-color: #333333;
     align-items: center;
+    position: sticky;
+    top: calc(100vh - 86px);
 }
 
 .footer_content {

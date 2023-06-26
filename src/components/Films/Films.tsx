@@ -49,8 +49,11 @@ export const Films = () => {
                             className={styles.film_poster}
                         ></img>
                         <div className={styles.film_info_wrap}>
+                            {/*  <Link href={`/FilmDetails/${encodeURIComponent(id)}`}> */}
                             <Link
-                                href={`/FilmDetails/${encodeURIComponent(id)}`}
+                                href={`/FilmDetails/${id}`}
+                                as={`/FilmDetails/${id}`}
+                                passHref
                             >
                                 <h3 className={styles.film_info_title}>
                                     {title}

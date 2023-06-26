@@ -1,12 +1,12 @@
 .films_wrap {
     width: 100%;
-    height: calc(100vh - 170px);
-    overflow: auto;
+    min-height: calc(100vh - 256px);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
     row-gap: 16px;
-    scroll-behavior: smooth;
+   /*  scroll-behavior: smooth; */
 }
 
 .film_content {

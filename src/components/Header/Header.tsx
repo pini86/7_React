@@ -20,7 +20,7 @@ export const Header: FunctionComponent = ({}) => {
     return (
         <div className={styles.header_wrap}>
             <div>
-                <Link href="/">
+                <Link href="/" passHref>
                     <div className={styles.title}>Билетопоиск</div>
                 </Link>
             </div>

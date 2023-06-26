@@ -54,7 +54,6 @@ export const Filter = () => {
 
     return (
         <div className={styles.filter_wrap}>
-            <form></form>
             <span className={styles.filter_title}>Фильтр поиска</span>
             <div className={styles.filter_content}>
                 <div className={styles.filter_item}>
