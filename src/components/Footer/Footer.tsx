@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent } from "react";
 import Link from "next/link";
 import styles from "./Footer.module.css";
@@ -14,7 +15,6 @@ export const Footer: FunctionComponent = ({}) => {
             </div>
             <div className={styles.footer_content}>
                 <Link href="/About">
-                    {" "}
                     <span className={styles.footer_content}>О нас</span>
                 </Link>
             </div>

@@ -1,12 +1,20 @@
 .main_wrap {
     width: 100%;
-    height: calc(100vh - 170px);
     background-color: #f5f5f5;
+    padding-top: 84px;
+    display: grid;
+    grid-template-columns: 22% 1fr;
+    padding: 24px 32px;
+    background-color: #e0e0e0;
+    min-height: calc(100vh - 170px);
+    grid-column-gap: 23px;
 }
 
 .main_content {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 22% 1fr;
     padding: 24px 32px;
-    column-gap: 23px;
+    background-color: #e0e0e0;
+    min-height: 100vh;
+    grid-column-gap: 23px;
 }

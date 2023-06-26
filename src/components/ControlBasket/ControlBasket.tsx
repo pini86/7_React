@@ -3,12 +3,13 @@ import styles from "./ControlBasket.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProductAmount } from "../../redux/features/cart/selector";
 import { cartActions } from "@/redux/features/cart";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 export const ControlBasket = ({ id, close = false }) => {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
+    const modalRef = useRef(null);
     const Count = () => {
         const productAmount = useSelector((state) =>
             selectProductAmount(state, id)
@@ -28,6 +29,14 @@ export const ControlBasket = ({ id, close = false }) => {
             dispatch(cartActions.decrement(id));
         }
     };
+
+    const onClickFunc = useCallback(
+        ({ target }) => {
+            const { current: el } = modalRef;
+            if (target === el && showModal) setShowModal(false);
+        },
+        [showModal]
+    );
     return (
         <div className={styles.control_wrap}>
             <button
@@ -74,7 +83,7 @@ export const ControlBasket = ({ id, close = false }) => {
 
     function ModalContent({ onClose, delFunc }) {
         return (
-            <div className={styles.modal}>
+            <div className={styles.modal} ref={modalRef} onClick={onClickFunc}>
                 <div className={styles.modal_wrap}>
                     <div className={styles.modal_title_wrap}>
                         <div className={styles.modal_title_content}>

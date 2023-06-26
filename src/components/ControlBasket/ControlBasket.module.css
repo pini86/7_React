@@ -16,9 +16,11 @@
 .disabled {
     background-color: #ffa375;
 }
+
 .enabled {
     background-color: #ff5500;
 }
+
 .close {
     border: none;
     background-image: url("./close.svg");

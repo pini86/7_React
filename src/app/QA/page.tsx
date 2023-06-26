@@ -2,29 +2,28 @@
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import styles from "./QA.module.css";
+import { useState } from "react";
+import Collapsed from "./Collapsed";
+import Expand from "./Expand";
 
 export default function QA() {
+    const [isOpen, setIsOpen] = useState({
+        q1: false,
+        q2: false,
+        q3: false,
+        q4: false,
+    });
     const view_answer = (id: string) => {
         const x = document.getElementById(id);
         if (x) {
             if (x.style.display === "none") {
                 x.style.display = "block";
+                setIsOpen({ ...isOpen, [id]: true });
             } else {
                 x.style.display = "none";
+                setIsOpen({ ...isOpen, [id]: false });
             }
         }
-        const b = document.getElementById(`button_` + id);
-        if (b) {
-            /*  if (b.classList.contains("up")) {
-                b.classList.remove("up");
-                b.classList.add("down");
-            } else {
-                b.classList.remove("down");
-                b.classList.add("up");
-            } */
-            b.classList.toggle("up");
-        }
-        return false;
     };
     return (
         <main>
@@ -43,8 +42,9 @@ export default function QA() {
                                 <button
                                     className={styles.qa_question_button}
                                     onClick={() => view_answer("q1")}
-                                    id="button_q1"
-                                ></button>
+                                >
+                                    {isOpen.q1 ? <Collapsed /> : <Expand />}
+                                </button>
                             </div>
 
                             <div className={styles.qa_question_answer} id="q1">
@@ -69,8 +69,9 @@ export default function QA() {
                                 <button
                                     className={styles.qa_question_button}
                                     onClick={() => view_answer("q2")}
-                                    id="button_q2"
-                                ></button>
+                                >
+                                    {isOpen.q2 ? <Collapsed /> : <Expand />}
+                                </button>
                             </div>
                             <div className={styles.qa_question_answer} id="q2">
                                 <span>На этот вопрос пока нет ответа.</span>
@@ -87,8 +88,9 @@ export default function QA() {
                                 <button
                                     className={styles.qa_question_button}
                                     onClick={() => view_answer("q3")}
-                                    id="button_q3"
-                                ></button>
+                                >
+                                    {isOpen.q3 ? <Collapsed /> : <Expand />}
+                                </button>
                             </div>
 
                             <div className={styles.qa_question_answer} id="q3">
@@ -106,8 +108,9 @@ export default function QA() {
                                 <button
                                     className={styles.qa_question_button}
                                     onClick={() => view_answer("q4")}
-                                    id="button_q4"
-                                ></button>
+                                >
+                                    {isOpen.q4 ? <Collapsed /> : <Expand />}
+                                </button>
                             </div>
 
                             <div className={styles.qa_question_answer} id="q4">

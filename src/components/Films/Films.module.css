@@ -1,12 +1,10 @@
 .films_wrap {
     width: 100%;
-    height: calc(100vh - 170px);
-    overflow: scroll;
+    min-height: calc(100vh - 256px);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     row-gap: 16px;
-    scroll-behavior: smooth;
 }
 
 .film_content {
@@ -15,7 +13,6 @@
     border-radius: 8px;
     background-color: #ffffff;
     display: flex;
-    /*  justify-content: space-between; */
     padding: 24px;
     column-gap: 24px;
 }
@@ -29,25 +26,22 @@
 .film_info_wrap {
     width: 100%;
     color: #1b1f23;
-   /*  font-family: Roboto; */
+    /*  font-family: Roboto; */
     line-height: 20px;
     letter-spacing: 0px;
     text-align: left;
-    /*  display: flex;
-    justify-content: space-between;
-    align-items: flex-start; */
 }
 
 .film_info_title {
     font-size: 20px;
     font-weight: 600;
 }
+
 .film_info_genre {
     font-size: 16px;
     font-style: italic;
     font-weight: 400;
 }
-
 
 .film_info {
     width: 100%;

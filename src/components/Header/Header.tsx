@@ -1,6 +1,5 @@
 "use client";
-
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCartModule } from "../../redux/features/cart/selector";
 import { FunctionComponent } from "react";
 import Link from "next/link";
@@ -20,7 +19,7 @@ export const Header: FunctionComponent = ({}) => {
     return (
         <div className={styles.header_wrap}>
             <div>
-                <Link href="/">
+                <Link href="/" passHref>
                     <div className={styles.title}>Билетопоиск</div>
                 </Link>
             </div>
