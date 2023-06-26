@@ -76,14 +76,6 @@
 .qa_question_button {
     width: 30px;
     height: 30px;
-    background-image: url("./icon.svg");
     border: none;
     background-color: #ffffff;
-}
-.up {
-    background-image: url("./icon_up.svg");
-}
-
-.down {
-    background-image: url("./icon.svg");
 }
