@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import styles from "../../../components/FilmDetails/FilmDetails.module.css";
 import { useSelector } from "react-redux";
@@ -7,12 +6,13 @@ import { selectMovies } from "@/redux/features/movies/selector";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { useGetReviewQuery } from "@/redux/services/reviewApi";
+import Image from "next/image";
 
 const FilmDetails = ({ params }) => {
     const dataFilm = useSelector((state) => selectMovies(state)).movies.filter(
         (item) => item.id === params.id
     );
-    console.log(dataFilm);
+   
     const {
         id,
         title,
@@ -34,18 +34,18 @@ const FilmDetails = ({ params }) => {
         return <span>Not found!</span>;
     }
 
-    console.log(reviewIds, data);
-
     return (
         <>
             <Header />
             <div className={styles.film_det_wrap}>
                 <div className={styles.film_det_content}>
-                    <img
+                    <Image
                         src={posterUrl}
                         alt={title}
                         className={styles.film_det_poster}
-                    ></img>
+                        width={400}
+                        height={500}
+                    ></Image>
                     <div className={styles.film_det_info_wrap}>
                         <div className={styles.film_det_info_title_wrap}>
                             <h3 className={styles.film_det_info_title}>

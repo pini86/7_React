@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import styles from "./Films.module.css";
 import { useSelector } from "react-redux";
@@ -7,6 +6,7 @@ import Link from "next/link";
 import { selectMovies } from "@/redux/features/movies/selector";
 import { selectFilters } from "@/redux/features/filters/selector";
 import { selectTheaters } from "@/redux/features/theaters/selector";
+import Image from "next/image";
 
 export const Films = () => {
     const currentFilters = useSelector((state) => selectFilters(state));
@@ -42,11 +42,13 @@ export const Films = () => {
             <div className={styles.films_wrap}>
                 {filmsFiltered.map(({ id, title, posterUrl, genre }) => (
                     <div className={styles.film_content} key={id}>
-                        <img
+                        <Image
                             src={posterUrl}
                             alt={title}
                             className={styles.film_poster}
-                        ></img>
+                            width={100}
+                            height={120}
+                        ></Image>
                         <div className={styles.film_info_wrap}>
                             {/*  <Link href={`/FilmDetails/${encodeURIComponent(id)}`}> */}
                             <Link

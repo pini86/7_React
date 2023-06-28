@@ -21,8 +21,8 @@
 }
 
 .film_det_poster {
-    width: 400px;
-    height: 500px;
+  /*   width: 400px;
+    height: 500px; */
     border-radius: 8px;
 }
 
